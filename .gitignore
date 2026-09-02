@@ -1,0 +1,57 @@
+# graphify: machine-local state (absolute paths, interpreter location)
+**/graphify-out/.graphify_python
+**/graphify-out/.graphify_root
+**/graphify-out/.needs_update
+
+# graphify: regenerable build artifact (one command to rebuild, no LLM cost)
+**/graphify-out/graph.html
+
+# graphify: per-run date-named backups + semantic extraction marker (runtime state)
+**/graphify-out/20*/
+**/graphify-out/.graphify_semantic_marker
+
+# graphify: transient extraction sidecars (auto-cleaned each run, kept for safety)
+**/graphify-out/.graphify_detect.json
+**/graphify-out/.graphify_extract.json
+**/graphify-out/.graphify_ast.json
+**/graphify-out/.graphify_semantic.json
+**/graphify-out/.graphify_semantic_new.json
+**/graphify-out/.graphify_analysis.json
+**/graphify-out/.graphify_cached.json
+**/graphify-out/.graphify_uncached.txt
+**/graphify-out/.graphify_chunk_*.json
+
+# Keep tracked: graph.json, GRAPH_REPORT.md, manifest.json, cost.json,
+# .graphify_labels.json, cache/  (cache = extraction accumulation, --update reuses it)
+
+# Obsidian (if a vault is ever placed inside this repo)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.trash/
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Python / tools
+**/__pycache__/
+*.pyc
+tools/.venv/
+.venv/
+
+# 其他 agent 工具（会话状态/配置，非 WIKI 内容；防误提交对话数据）
+.omo/
+.mimocode/
+.opencode/
+
+# 根级 graphify-out（post-commit 钩子自动生成，非模块产物；模块图谱在各 <module>/graphify-out/）
+/graphify-out/
+
+# graphify: regenerable vocab + query stamp (machine-local churn)
+**/graphify-out/.vocab.txt
+**/graphify-out/cache/last_query_stamp
+
+# corpus（受版权转换文本）与原始 PDF：公开仓库建议不入库，私有可删去下方两行后提交
+**/corpus/
+**/*.pdf
