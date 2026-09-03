@@ -19,7 +19,7 @@ description: Search the wiki corpus for EXACT values — table numbers, register
 2. **定位**：在对应 corpus md 里文本检索（grep）关键词（协议名、opcode、bit 名、参数名、寄存器名），带行号。
 3. **读上下文**：读该 md 的对应行段（offset/limit），把整张表或整个位域定义读全。
 4. **引用**：回答里标来源文档 + 章节号 + 打印页号（对照 CORPUS_MAP 换算）。表值引用要说清是哪张表。
-5. **兜底**：md 里找不到或疑似转换残缺 → 才回原始 PDF（读指定页，用 CORPUS_MAP 的换算公式）。
+5. **兜底**：md 里找不到或疑似转换残缺 → 回原始 PDF：`uv run --project tools python tools/pdf_page.py <pdf> <PDF页号>`（页号取语料页标记 N；页文本缓存 `<模块>/.pdfcache/`；禁止在仓库根造 `tmp_pdf_page*.txt` 临时文件）。
 
 ## 注意
 

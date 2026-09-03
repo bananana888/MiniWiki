@@ -19,7 +19,7 @@
 |---|---|---|
 | 概念 / 架构 / 关系 / 跨文档 | 图谱 | `graphify query "<问题>" --graph <module>/graphify-out/graph.json` |
 | 精确值 / 表 / 位域 / 寄存器字段 / 时序参数 | 语料 | grep `<module>/corpus/*.md` 定位行号 → 读上下文 |
-| 前两层都缺，或疑似转换残缺 | 原始 PDF | 读 `<module>/` 下 PDF（页号换算见 `CORPUS_MAP.md`） |
+| 前两层都缺，或疑似转换残缺 | 原始 PDF | `uv run --project tools python tools/pdf_page.py <pdf> <PDF页号>` 抽页（页号取语料页标记的 N，流程见 §4；换算见 `CORPUS_MAP.md`） |
 
 **实测检索指引**：
 - 精确值 / 表 / 位域 / 时序 → **语料优先**（语料层是精确值唯一可靠层）。
@@ -46,6 +46,7 @@
 - **证据先于结论**：声称完成/修好/通过前必须实际运行验证命令并确认输出；失败如实报告。
 - 多步骤任务拆小，一次只做一件事，每步确认结果。
 - 公式 / 图表缺失时立即回原始 PDF，不臆测内容。
+- **PDF 兜底标准流程**：统一 `uv run --project tools python tools/pdf_page.py <pdf> <PDF页号>`（页号取语料最近 `<!-- PDF页N / 打印页M -->` 标记的 N），输出 stdout、自动缓存 `<模块>/.pdfcache/`（gitignored）。**禁止**在仓库根 / 模块根造 `tmp_pdf_page*.txt` 一类临时文件。
 
 ## 5. 仓库维护
 

@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **精确值 / 表 / 位域 / 寄存器字段 / 时序参数 → 语料优先**：直接 grep `corpus/*.md` 定位行号后 Read 上下文。语料层是精确值唯一可靠层；可触发 `corpus-qa` skill。
 - **概念 / 架构 / 关系 / 跨文档 → 图谱定位**：`graphify query "<问题>" --graph <module>/graphify-out/graph.json`。但图谱节点标题**无章节号**，引用必须回语料取（拿不到 `13.4.17` 这类章节号）。
 - **中文概念查询图谱常失效**（"No matching nodes"，节点是英文标题）→ 直接走语料层。
-- 两层都缺 → 原始 PDF 兜底（PDF 页 ↔ 打印页换算见各 `CORPUS_MAP.md`）。
+- 两层都缺 → 原始 PDF 兜底：`uv run --project tools python tools/pdf_page.py <pdf> <PDF页号>`（页号取语料页标记 N，见 AGENTS.md §4；PDF 页 ↔ 打印页换算见各 `CORPUS_MAP.md`）。
 
 **引用规范（强制）**：语料层标 文档 + 章节 + 打印页（如 `DocName §14.1.4 p.339`）；图谱层引用 `source_location`。给不出可验证引用时明确标注"推断/无来源"。
 

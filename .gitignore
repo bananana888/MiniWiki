@@ -55,3 +55,6 @@ tools/.venv/
 # corpus（受版权转换文本）与原始 PDF：公开仓库建议不入库，私有可删去下方两行后提交
 **/corpus/
 **/*.pdf
+
+# PDF 兜底页文本缓存（tools/pdf_page.py 生成，可重抽，非仓库内容）
+**/.pdfcache/

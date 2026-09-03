@@ -42,3 +42,13 @@ $D "<module>/你的文档.pdf" "<module>/corpus/xxx" --offset N
 - 依赖 PDF **文本层**（无文本层扫描件需另配 OCR）
 - 转换可重复执行，覆盖同名输出
 - corpus 是否入 git 由你定：公开仓库建议忽略（含受版权文本），见 `.gitignore`
+
+## PDF 兜底页文本（查值回源，不走语料转换）
+
+```bash
+uv run --project tools python tools/pdf_page.py <pdf> <PDF页号> [<页号>...]
+```
+
+- 页号用语料页标记 `<!-- PDF页N / 打印页M -->` 的 N（M 仅 CORPUS_MAP 换算引用）
+- 输出 stdout，页文本自动缓存 `<模块>/.pdfcache/`（gitignored，同页二次读取零成本）
+- `--refresh` 强制重抽；读页禁止在仓库根落 `tmp_pdf_page*.txt` 临时文件
