@@ -3,6 +3,45 @@
 把 PDF 技术文档转成**可检索语料 + 知识图谱**，供 AI 编程助手（Claude Code 等）高质量问答。
 本仓库为**空系统骨架**：不含任何受版权 PDF 或转换语料，`tools/` + 规则 + 工作流可直接复用，你放入自己的文档即用。
 
+## 快速开始（一键部署，喂给 Claude Code）
+
+复制下面整段给 **Claude Code**（或其他 AI 编程助手）执行，自动避开系统盘、走国内镜像、检测 GPU 并自检：
+
+<details>
+<summary>📋 部署提示词 — 点开复制</summary>
+
+```text
+你是部署助手。为我在本机部署开源项目 MiniWiki（多模块技术文档 wiki 检索系统）。
+
+【硬盘】全程避开 C 盘（系统盘）：git clone 目录、uv 缓存、Python 环境、HuggingFace 缓存全部放非系统盘。
+开始前先问我：目标盘用哪个（默认 D:/，回 D 或 E 即可）；只有我明确说用 C 盘才放 C。
+
+【国内镜像】所有下载走国内加速：
+- uv / pip 索引：用清华或阿里源（如 https://pypi.tuna.tsinghua.edu.cn/simple）
+- HuggingFace 模型：export HF_ENDPOINT=https://hf-mirror.com
+- CUDA PyTorch 下载较大、可能较慢，提前告知用户
+
+【步骤】
+1. 按目标盘 clone：git clone https://github.com/bananana888/MiniWiki.git <盘符>:/MiniWiki
+2. 机器无 uv 则用官方脚本安装（安装目录设非系统盘）
+3. 装 graphify（图谱检索 skill）：uv tool install "graphifyy[openai]"；再 graphify install --platform claude（注册到 ~/.claude/skills）
+4. 让用户提供 LLM key（国内推荐 DEEPSEEK_API_KEY），写入用户级环境变量，绝不写进仓库
+5. tools 依赖：cd MiniWiki && uv sync --project tools
+6. 检测 GPU：nvidia-smi
+   - 有 GPU → 保留 docling GPU 转换能力（后续转语料用 CUDA torch，见 README/DEPLOY）
+   - 无 GPU → 语料转换走 CPU 快的 pdfplumber 脚本 tools/convert.py；docling 真表格仅必要时 CPU 慢跑
+
+【自检】每步报结果，全过才算成功：
+- graphify --version 有版本号
+- ~/.claude/skills/graphify/ 存在
+- uv run --project tools python -c "import pdfplumber, pymupdf" 无报错
+- 用户若有现成 PDF：试转 1 页验证（有 GPU 用 tools/backfill_pagemarks.py，无 GPU 用 tools/convert.py）
+- 失败如实报告原因，不跳过不假装成功
+
+完成后给安装摘要（组件版本/位置/GPU 情况）+ 下一步加文档指引（README「添加你的第一份文档」）。
+```
+</details>
+
 ## 结构
 
 ```
