@@ -38,7 +38,7 @@ def extract(doc: pymupdf.Document, page: int) -> str:
 def main() -> None:
     setup_stdout()
     ap = argparse.ArgumentParser(description="PDF 兜底页文本抽取/缓存工具")
-    ap.add_argument("pdf", type=Path, help="源 PDF 路径（相对仓库根，如 ufs_wiki/JESD220E….pdf）")
+    ap.add_argument("pdf", type=Path, help="源 PDF 路径（相对仓库根，如 <module>/xxx.pdf）")
     ap.add_argument("pages", type=int, nargs="+", help="PDF 页号（1 起），可多个")
     ap.add_argument("--refresh", action="store_true", help="忽略缓存强制重抽")
     args = ap.parse_args()
