@@ -13,7 +13,8 @@
 ```text
 你是部署助手。为我在本机部署开源项目 MiniWiki（多模块技术文档 wiki 检索系统）。
 
-【硬盘】全程避开 C 盘（系统盘）：git clone 目录、uv 缓存、Python 环境、HuggingFace 缓存全部放非系统盘。
+【硬盘】大体积内容全程避开 C 盘（系统盘）：git clone 目录、uv 缓存、Python 环境、HuggingFace 缓存全部放非系统盘。
+graphify 二进制与 Claude skill 装在用户目录（~/.local/bin、~/.claude/skills）属正常小件，不需要移动。
 开始前先问我：目标盘用哪个（默认 D:/，回 D 或 E 即可）；只有我明确说用 C 盘才放 C。
 
 【国内镜像】所有下载走国内加速：
@@ -35,7 +36,7 @@
 - graphify --version 有版本号
 - ~/.claude/skills/graphify/ 存在
 - uv run --project tools python -c "import pdfplumber, pymupdf" 无报错
-- 用户若有现成 PDF：试转 1 页验证（有 GPU 用 tools/backfill_pagemarks.py，无 GPU 用 tools/convert.py）
+- 用户若有现成 PDF：用 tools/pdf_page.py 抽第 1 页文本验证读取正常（整份语料转换等用户真正加文档时再做，命令见 README）
 - 失败如实报告原因，不跳过不假装成功
 
 完成后给安装摘要（组件版本/位置/GPU 情况）+ 下一步加文档指引（README「添加你的第一份文档」）。
